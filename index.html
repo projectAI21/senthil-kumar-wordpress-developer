@@ -300,6 +300,7 @@
       transform: translateX(-50%);
       display: flex; flex-direction: column; align-items: center; gap: .5rem;
       z-index: 2;
+      pointer-events: none;
     }
     .scroll-hint span {
       font-size: .7rem;
@@ -682,6 +683,8 @@
     .contact-bg {
       background: var(--bg-card2);
       border-top: 1px solid var(--border);
+      isolation: isolate;
+      transform: translateZ(0);
     }
     .contact-inner {
       max-width: 760px;
@@ -750,11 +753,36 @@
       .nav-links { display: none; }
       .nav-burger { display: flex; }
     }
+    @media (max-width: 768px) {
+      /* Hide scroll indicator so it never overlaps hero stats */
+      .scroll-hint { display: none; }
+      /* Give hero extra bottom padding so stats have room */
+      .hero { padding-bottom: 5rem; }
+      /* Stack stats 2-per-row cleanly */
+      .hero-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-top: 3rem;
+      }
+      /* Contact links stack full-width on mobile */
+      .contact-links { flex-direction: column; align-items: stretch; }
+      .contact-link {
+        width: 100%;
+        justify-content: flex-start;
+        word-break: break-all;
+        font-size: .83rem;
+        padding: .8rem 1rem;
+      }
+      /* Disable hover transform on mobile — prevents WebKit compositing glitch */
+      .contact-link:hover { transform: none; }
+      /* Prevent contact section background bleed */
+      .contact-bg { overflow: hidden; }
+    }
     @media (max-width: 640px) {
       .section { padding: 4.5rem 0; }
-      .hero { padding: 6rem 0 4rem; }
+      .hero { padding: 6rem 0 5rem; }
       .hero h1 { letter-spacing: -.015em; }
-      .hero-stats { gap: 1.75rem; }
       .projects-grid { grid-template-columns: 1fr; }
     }
 
@@ -806,7 +834,7 @@
       <div class="hero-content">
         <div class="hero-eyebrow">
           <span class="hero-eyebrow-line"></span>
-          <span>Open to Full-Time Opportunities</span>
+          <span>Available for freelance</span>
         </div>
 
         <h1>
@@ -1313,7 +1341,7 @@
   <!-- ── FOOTER ────────────────────────────────────────────── -->
   <footer class="footer">
     <div class="container">
-      <p>Designed &amp; built by <span>Senthil Kumar S</span> · © 202</p>
+      <p>Designed &amp; built by <span>Senthil Kumar S</span> · © 2025</p>
     </div>
   </footer>
 
